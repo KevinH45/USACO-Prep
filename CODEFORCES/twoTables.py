@@ -7,7 +7,6 @@ for i in range(N):
     boxWidth, boxLength = map(int, input().split())
     x1, y1, x2, y2 = map(int, input().split())
     newTableWidth, newTableLength = map(int, input().split())
-    tableWidth, tableLength = x2-x1, y2-y1
 
     # If there is no overlap, then the result of these calculations are negative or 0 
     # We can just do max(0, calc) to find the minimum distance you need to move
@@ -31,9 +30,9 @@ for i in range(N):
     #    left_dist = float("inf")
     #if x1 - down_dist < 0:
     #    right_dist = float("inf")
-    if newTableLength + tableLength > boxLength:
+    if newTableLength + (y2-y1) > boxLength:
         downDist, upDist = None, None
-    if newTableWidth + tableWidth > boxWidth:
+    if newTableWidth + (x2-x1) > boxWidth:
         leftDist, rightDist = None, None
 
     solutionSet = [i for i in (downDist, upDist, leftDist, rightDist) if i is not None]
