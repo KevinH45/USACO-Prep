@@ -16,10 +16,10 @@ for i in range(N):
     # 0 1 2 3 4 5 6 7 8 9 10
     # Minimum distance that you need if you are going to travel in the opposite direciton
     # if you place the new table to the ___ of the rectangle
-    down_dist = max(0, newTableLength-y1)
-    up_dist = max(0, y2 - (boxLength - newTableLength))
-    left_dist = max(0, newTableWidth-x1)
-    right_dist = max(0, x2 - (boxWidth - newTableWidth))
+    downDist = max(0, newTableLength-y1)
+    upDist = max(0, y2 - (boxLength - newTableLength))
+    leftDist = max(0, newTableWidth-x1)
+    rightDist = max(0, x2 - (boxWidth - newTableWidth))
 
     # Check if within bounds
     # why does checking whether the individual translated points are in bounds not work:
@@ -32,11 +32,11 @@ for i in range(N):
     #if x1 - down_dist < 0:
     #    right_dist = float("inf")
     if newTableLength + tableLength > boxLength:
-        down_dist, up_dist = None, None
+        downDist, upDist = None, None
     if newTableWidth + tableWidth > boxWidth:
-        left_dist, right_dist = None, None
+        leftDist, rightDist = None, None
 
-    solutionSet = [i for i in (down_dist, up_dist, left_dist, right_dist) if i is not None]
+    solutionSet = [i for i in (downDist, upDist, leftDist, rightDist) if i is not None]
     if not solutionSet:
         print(-1)
     else:
