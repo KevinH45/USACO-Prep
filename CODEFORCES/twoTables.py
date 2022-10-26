@@ -10,6 +10,7 @@ for i in range(N):
 
     # If there is no overlap, then the result of these calculations are negative or 0 
     # We can just do max(0, calc) to find the minimum distance you need to move
+    # Direction in the y
     # |       |   |       |
     # |         |     |   |
     # 0 1 2 3 4 5 6 7 8 9 10
