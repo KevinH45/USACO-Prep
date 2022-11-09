@@ -12,12 +12,12 @@ public class censor {
         char[] new_s = new char[(int)1e6];
         int index = 0;
         int censorLength = censor.length();
-        for (int i=0; i<s.length(); i++){
+        for (int i=0; i<s.length(); i++) {
             char curChar = s.charAt(i);
             new_s[index] = curChar;
             index++;
             
-            if (index<censorLength){
+            if (index<censorLength) {
                 continue;
             }
             boolean found = true;
@@ -36,10 +36,18 @@ public class censor {
             
         }
         
-        for (int i=0; i<index; i++){
+        for (int i=0; i<index; i++) {
             pw.print(new_s[i]);
         }
         scan.close();
         pw.close();
     }
+
+    // static boolean found2(int index) {
+    //     for () {
+    //         if (.. different char..
+    //             return false
+    //     }
+    //     return true
+    // }
 }
