@@ -6,6 +6,7 @@ sys.stdout = open("circlecross.out", "w")
 
 def in_range(n, lower, upper):
     return lower <= n and upper>= n
+    
 def c_length(a,b,c,d):
     if in_range(a, c, d) and in_range(b, c, d):
         return 0
