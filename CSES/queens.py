@@ -1,77 +1,47 @@
-from copy import deepcopy
-
-def printArray(board):
-    for i in board:
-
-        for j in i:
-            print(j, end=" ")
-        print()
-    
-def in_bounds(board, pos):
-    r,c  = pos
-    hb1, hb2 = 0, len(board[0])-1
-    vb1, vb2 = 0, len(board)-1
-    return (c >= hb1 and c <= hb2) and (r >= vb1 and r <= vb2)
-
-def find_valid(board):
-    moves = []
-    for i in range(len(board)):
-        for j in range(len(board[i])):
-            if board[i][j]==".":
-                moves.append((i,j))
-    return moves
-
-def mark_board(pos, board):
-    # pos > (row,column)
+board = []
+  
+def check_collisions(row, col):
     # Mark vertically
-    r, c = pos
+    r, c = row, col
     for i in range(len(board)):
-        board[i][c] = "*"
-
-    # Mark horizontally
-    for i in range(len(board[0])):
-        board[r][i] = "*"
-
-    # Mark diagonally left
-    cur_pos = (r,c)
-    while in_bounds(board, cur_pos):
-        board[cur_pos[0]][cur_pos[1]] = "*"
-        cur_pos = (cur_pos[0]+1, cur_pos[1]-1)
-    
-    cur_pos = (r,c)
-    while in_bounds(board, cur_pos):
-        board[cur_pos[0]][cur_pos[1]] = "*"
-        cur_pos = (cur_pos[0]-1, cur_pos[1]+1)
+        if board[i][c] == "X":
+            return False
 
     # Mark diagonally right
+    r, c = row, col
+    while c >= 0 and c <= 7 and r >= 0 and r <= 7:
+        if board[r][c] == "X":
+            return False
+        r -= 1
+        c += 1
 
-    cur_pos = (r,c)
-    while in_bounds(board, cur_pos):
-        board[cur_pos[0]][cur_pos[1]] = "*"
-        cur_pos = (cur_pos[0]+1, cur_pos[1]+1)
-    
-    cur_pos = (r,c)
-    while in_bounds(board, cur_pos):
-        board[cur_pos[0]][cur_pos[1]] = "*"
-        cur_pos = (cur_pos[0]-1, cur_pos[1]-1)
+    # Mark diagonally left
+    r, c = row, col
+    while c >= 0 and c <= 7 and r >= 0 and r <= 7:
+        if board[r][c] == "X":
+            return False
+        r -= 1
+        c -= 1
 
-    return board
+    return True
 
-def search(n_queens, board, tally):
+def search(n_queens):
 
     if n_queens == 8:
-        return tally+1
+        return 1
     
-    valid = find_valid(board)
-
-    for i,j in valid:
-        tally = search(n_queens+1, mark_board((i,j), deepcopy(board)), tally)
+    tally = 0
+    for i in range(8):
+        if board[n_queens][i] == "*":
+            continue
+        if check_collisions(n_queens, i):
+            board[n_queens][i] = "X"
+            tally += search(n_queens+1)
+            board[n_queens][i] = "."
     
     return tally
-
-board = []
 
 for i in range(8):
     board.append(list(input()))
 
-print(search(0, board, 0))
+print(search(0))

@@ -5,11 +5,20 @@ min_i = float("inf")
 for i in range(len(weights)):
 
     for j in range(i+1, len(weights)):
-        tmp = [y for x,y in enumerate(weights) if x not in (i,j)]
         cur_i = 0
-        for z in range(len(tmp)):
-            if z%2==0:
-                subset = tmp[z:z+2]
-                cur_i += abs(subset[0]-subset[1])
+        z = 0
+        while z < len(weights):
+            if z==i or z==j:
+                z+=1
+                continue
+            p_z = z
+            z+=1
+            while z==i or z==j:
+                z+=1
+
+            if z>=len(weights):
+                break
+            cur_i += abs(weights[p_z]-weights[z])
+            z+=1
         min_i = min(cur_i, min_i)
 print(min_i)
